@@ -67,23 +67,28 @@ async function fetchingInformation( searchTerm ){
     let results = document.querySelector( '.results' );
     results.innerHTML = "";
 
-    for( let i = 0; i < data.articles.length; i ++ ){
-        results.innerHTML += `
-            <div class="topNew">
-                <h2>
-                    ${data.articles[i].title}
-                </h2>
-                <div class="image">
-                    <img src="${data.articles[i].urlToImage}" class="size"/>
+    if( data.totalResults === 0 ){
+        results.innerHTML = `No results found with that search term: '${searchTerm}'`;
+    }
+    else{
+        for( let i = 0; i < data.articles.length; i ++ ){
+            results.innerHTML += `
+                <div class="topNew">
+                    <h2>
+                        ${data.articles[i].title}
+                    </h2>
+                    <div class="image">
+                        <img src="${data.articles[i].urlToImage}" class="size"/>
+                    </div>
+                    <h4>
+                        ${data.articles[i].author} 
+                    </h4>
+                    <p>
+                        ${data.articles[i].description}
+                    </p>
                 </div>
-                <h4>
-                    ${data.articles[i].author} 
-                </h4>
-                <p>
-                    ${data.articles[i].description}
-                </p>
-            </div>
-        `;
+            `;
+        }
     }
 }
 
